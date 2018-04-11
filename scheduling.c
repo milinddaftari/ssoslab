@@ -1,11 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 typedef struct J
 {
 	int arrival,finish,burst,tat,wt;
 }Job;
-
 void scheduler(Job job[],int n,int q,int c)
 {
 	int bursts[100];
