@@ -1,26 +1,20 @@
 %{
 #include<stdio.h>
-int comment=0;
+#include<stdlib.h>
+int c=0;
 %}
 %%
-[/][/][a-zA-Z0-9 ]*  {
-						printf("");
-						comment++;
-					   }
-[/][*][a-zA-Z0-9 \n\t]*[\n]*[*][/]	{
-										printf("");
-										comment++;
-									}
+[/][/][0-9a-zA-Z ]* {printf(" "); c++;}
+[/][*][0-9a-zA-Z \n\t]*[\n]*[*][/] {printf(" "); c++;}
 %%
-main(int argc,char *argv[])
+main()
 {
-	yyin = fopen(argv[1],"r");
-	yyout = fopen(argv[2],"w");
+	yyin = fopen("in.c","r");
+	yyout = fopen("out.c","w");
 	yylex();
-	printf("\nTotal comment lines = %d \n",comment);
+	printf("\nTotal Comment lines is %d \n",c);
 }
-
 int yywrap()
 {
-	return(1);
+	return 1;
 }
