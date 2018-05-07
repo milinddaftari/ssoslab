@@ -7,21 +7,20 @@ char sy_stack[20],ind_prod[30][20];
 int stack[20];
 char action_T[]="a+*()$";
 char goto_nt[]="ETF";
-char set_of_terminal[]={"#abcdefghijklmnopqrstuvwxyz+-/*()"};
 int top=-1,sy_top=-1;
-char action[12][9][6]={{"S5","","","S4","",""},
-			{"","S6","","","","Accept"},
-			{"","R2","S7","","R2","R2"},
-			{"","R4","R4","","R4","R4"},
-			{"S5","","","S4","",""},
-			{"","R6","R6","","R6","R6"},
-			{"S5","","","S4","",""},
-			{"S5","","","S4","",""},
-			{"","S6","","","S11",""},
-			{"","R1","S7","","R1","R1"},
-			{"","R3","R3","","R3","R3"},
-			{"","R5","R5","","R5","R5"},
-			};
+char action[12][9][6]={{"S5"," "," ","S4"," "," "},
+					   {" ","S6"," "," "," ","Accept"},
+					   {" ","R2","S7"," ","R2","R2"},
+					   {" ","R4","R4"," ","R4","R4"},
+					   {"S5"," "," ","S4"," "," "},
+					   {" ","R6","R6"," ","R6","R6"},
+					   {"S5"," "," ","S4"," "," "},
+					   {"S5"," "," ","S4"," "," "},
+					   {" ","S6"," "," ","S11"," "},
+					   {" ","R1","S7"," ","R1","R1"},
+					   {" ","R3","R3"," ","R3","R3"},
+					   {" ","R5","R5"," ","R5","R5"}
+					  };
 int Goto[12][3]={{1,2,3},
 		{-1,-1,-1},
 		{-1,-1,-1},
@@ -76,8 +75,9 @@ void push(int x)
 }
 void pop(int n)
 {
-	
-	top-=n;
+	int i;
+    for(i=0;i<n;i++)
+		top--;
 }
 void disp(int j,char inputstring[30])
 {
@@ -85,14 +85,17 @@ void disp(int j,char inputstring[30])
 	for(i=0;i<=top;i++)
 		printf("%3d",stack[i]);
 	if(i==2)
-		printf("				");
+		printf("			 ");
 	else if(i==3)
-		printf("			");
+		printf("		   ");
 	else
-		printf("		");
-	for(i=0;i<sy_top;i++)
+		printf("		 ");
+	for(i=0;i<=sy_top;i++)
 		printf("%c",sy_stack[i]);
-	printf("\t\t");
+	printf("\t\t\t");
+	for(i=j;i<strlen(inputstring);i++)
+		printf("%c",inputstring[i]);
+	printf("\t\t\t");
 }
 void sy_push(char x)
 {
@@ -191,9 +194,9 @@ int main()
 		strcat(inputstring,"$");
 		push(0);
 		printf("\n Stack \t\t\t Symbol \t\t Input \t\t Action 		");
-		printf("\n ___________________________________________________________________________________ \n");
+		printf("\n ________________________________________________________________________________________________ \n");
 		processinput(inputstring);
-		printf("\n______\t\t______\t\t_____\t\t______\n");
+		printf("\n_________________________________________________________________________________________________ \n");
 		printf("\n Press 1 to contine 0 to Exit\t");					
 		scanf("%d",&ch);
 		fflush(stdin);
