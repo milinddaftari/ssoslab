@@ -1,13 +1,10 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-char inputsymbols[30];
-int n;
-char sy_stack[20],production[30][20];
-int stack[20];
+char inputstring[30],sy_stack[20],production[30][20];
+int n,i,j,top=-1,sy_top=-1,stack[20],op;
 char action_T[]="a+*()$";
 char goto_nt[]="ETF";
-int top=-1,sy_top=-1;
 char action[12][9][6]={{"S5"," "," ","S4"," "," "},
 					   {" ","S6"," "," "," ","Accept"},
 					   {" ","R2","S7"," ","R2","R2"},
@@ -109,7 +106,7 @@ void sy_pop(int n)
 }
 void processinput(char inputstring[30])
 {
-	int i,j,col,s,prod_no,t,st,buf[60],num;
+	int col,s,prod_no,t,st,num;
 	char ch,ac[3],*token,prod[20],rprod[20],temp[3];
 	for(i=0;i<strlen(inputstring);i++)
 	{
@@ -117,7 +114,6 @@ void processinput(char inputstring[30])
 		while(1)
 		{
 			s=stack[top];
-			buf[0]='\0';
 			col=getterminalindex(ch);
 			if(action[s][col][0]=='S')
 			{
@@ -173,17 +169,11 @@ void processinput(char inputstring[30])
 }
 int main()
 {	
-	char inputstring[30];
-	int i,j,ch;
 	for(i=0;i<6;i++)
 	{
 		printf("Enter the %d production\t",i+1);
-		scanf("%s",production[i]);
-		
+		scanf("%s",production[i]);	
 	}
-	printf("\nThe productions entered\t");
-	for(i=0;i<6;i++)
-		printf("\n%d %s",i+1,production[i]);
 	while(1)
 	{
 		top=-1;
@@ -197,9 +187,9 @@ int main()
 		processinput(inputstring);
 		printf("\n_________________________________________________________________________________________________ \n");
 		printf("\n Press 1 to contine 0 to Exit\t");					
-		scanf("%d",&ch);
+		scanf("%d",&op);
 		fflush(stdin);
-		if(ch==0)
+		if(op==0)
 			break;
 	}
 }
