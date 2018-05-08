@@ -174,7 +174,7 @@ void processinput(char inputstring[30])
 int main()
 {	
 	char inputstring[30];
-	int i,j,n_ind=0,ch;
+	int i,j,ch;
 	for(i=0;i<6;i++)
 	{
 		printf("Enter the %d production\t",i+1);
@@ -182,8 +182,7 @@ int main()
 		
 	}
 	printf("\nThe productions entered\t");
-	n_ind=6;
-	for(i=0;i<n_ind;i++)
+	for(i=0;i<6;i++)
 		printf("\n%d %s",i+1,production[i]);
 	while(1)
 	{
