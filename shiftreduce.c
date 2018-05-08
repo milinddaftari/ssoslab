@@ -3,7 +3,7 @@
 #include<stdlib.h>
 char inputsymbols[30];
 int n;
-char sy_stack[20],ind_prod[30][20];
+char sy_stack[20],production[30][20];
 int stack[20];
 char action_T[]="a+*()$";
 char goto_nt[]="ETF";
@@ -144,18 +144,18 @@ void processinput(char inputstring[30])
 				strcpy(ac,action[s][col]);
 				prod_no=ac[1]-'0';
 				prod_no--;
-				strcpy(prod,ind_prod[prod_no]);
+				strcpy(prod,production[prod_no]);
 				strcpy(rprod,strrev(prod));
 				token=strtok(rprod,">");
 				pop(strlen(token));
 				t=stack[top];
-				col=getgotoindex(ind_prod[prod_no][0]);
+				col=getgotoindex(production[prod_no][0]);
 				st=Goto[t][col];
 				sy_pop(strlen(token));
-				sy_push(ind_prod[prod_no][0]);
+				sy_push(production[prod_no][0]);
 				push(st);
 				disp(i,inputstring);
-				printf("REDUCE %s %s\n",ac,ind_prod[prod_no]);
+				printf("REDUCE %s %s\n",ac,production[prod_no]);
 			}
 			else if(action[s][col][0]=='A')
 			{
@@ -173,18 +173,18 @@ void processinput(char inputstring[30])
 }
 int main()
 {	
-	char production[10][20],inputstring[30];
+	char inputstring[30];
 	int i,j,n_ind=0,ch;
 	for(i=0;i<6;i++)
 	{
 		printf("Enter the %d production\t",i+1);
 		scanf("%s",production[i]);
-		strcpy(ind_prod[i],production[i]);
+		
 	}
 	printf("\nThe productions entered\t");
 	n_ind=6;
 	for(i=0;i<n_ind;i++)
-		printf("\n%d %s",i+1,ind_prod[i]);
+		printf("\n%d %s",i+1,production[i]);
 	while(1)
 	{
 		top=-1;
@@ -204,4 +204,3 @@ int main()
 			break;
 	}
 }
-
