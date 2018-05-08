@@ -109,7 +109,7 @@ void sy_pop(int n)
 }
 void processinput(char inputstring[30])
 {
-	int i,j,m,col,s,l,prod_no,t,st,buf[60],num;
+	int i,j,col,s,prod_no,t,st,buf[60],num;
 	char ch,ac[3],*token,prod[20],rprod[20],temp[3];
 	for(i=0;i<strlen(inputstring);i++)
 	{
