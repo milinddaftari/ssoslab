@@ -1,13 +1,10 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-char inputsymbols[30];
-int n;
-char sy_stack[20],ind_prod[30][20];
-int stack[20];
+char inputstring[30],sy_stack[20],production[30][20];
+int n,i,j,top=-1,sy_top=-1,stack[20],op;
 char action_T[]="a+*()$";
 char goto_nt[]="ETF";
-int top=-1,sy_top=-1;
 char action[12][9][6]={{"S5"," "," ","S4"," "," "},
 					   {" ","S6"," "," "," ","Accept"},
 					   {" ","R2","S7"," ","R2","R2"},
@@ -109,7 +106,7 @@ void sy_pop(int n)
 }
 void processinput(char inputstring[30])
 {
-	int i,j,m,col,s,l,prod_no,t,st,buf[60],num;
+	int col,s,prod_no,t,st,num;
 	char ch,ac[3],*token,prod[20],rprod[20],temp[3];
 	for(i=0;i<strlen(inputstring);i++)
 	{
@@ -117,7 +114,6 @@ void processinput(char inputstring[30])
 		while(1)
 		{
 			s=stack[top];
-			buf[0]='\0';
 			col=getterminalindex(ch);
 			if(action[s][col][0]=='S')
 			{
@@ -144,18 +140,18 @@ void processinput(char inputstring[30])
 				strcpy(ac,action[s][col]);
 				prod_no=ac[1]-'0';
 				prod_no--;
-				strcpy(prod,ind_prod[prod_no]);
+				strcpy(prod,production[prod_no]);
 				strcpy(rprod,strrev(prod));
 				token=strtok(rprod,">");
 				pop(strlen(token));
 				t=stack[top];
-				col=getgotoindex(ind_prod[prod_no][0]);
+				col=getgotoindex(production[prod_no][0]);
 				st=Goto[t][col];
 				sy_pop(strlen(token));
-				sy_push(ind_prod[prod_no][0]);
+				sy_push(production[prod_no][0]);
 				push(st);
 				disp(i,inputstring);
-				printf("REDUCE %s %s\n",ac,ind_prod[prod_no]);
+				printf("REDUCE %s %s\n",ac,production[prod_no]);
 			}
 			else if(action[s][col][0]=='A')
 			{
@@ -173,18 +169,11 @@ void processinput(char inputstring[30])
 }
 int main()
 {	
-	char production[10][20],inputstring[30];
-	int i,j,n_ind=0,ch;
 	for(i=0;i<6;i++)
 	{
 		printf("Enter the %d production\t",i+1);
-		scanf("%s",production[i]);
-		strcpy(ind_prod[i],production[i]);
+		scanf("%s",production[i]);	
 	}
-	printf("\nThe productions entered\t");
-	n_ind=6;
-	for(i=0;i<n_ind;i++)
-		printf("\n%d %s",i+1,ind_prod[i]);
 	while(1)
 	{
 		top=-1;
@@ -198,10 +187,9 @@ int main()
 		processinput(inputstring);
 		printf("\n_________________________________________________________________________________________________ \n");
 		printf("\n Press 1 to contine 0 to Exit\t");					
-		scanf("%d",&ch);
+		scanf("%d",&op);
 		fflush(stdin);
-		if(ch==0)
+		if(op==0)
 			break;
 	}
 }
-
