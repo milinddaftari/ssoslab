@@ -42,38 +42,40 @@ class pagerep
 		for(k=0;k<frame_size;k++)
 			frame[k]=999;
 		for(i=0;i<ref_len;i++)
-			if(i<frame_size)
 			{
-				frame[i] = page_seq[i];
-				System.out.print("Page" + page_seq[i] + " : ");
-				pf++;
-			}
-			else
-			{
-				System.out.print("Page" + page_seq[i] + " : ");
-				for(j=0;j<frame_size;j++)
+				if(i<frame_size)
 				{
-					if(page_seq[i]==frame[j])
-					{
-						d=0;
-						break;
-					}
-				}
-				if(d==0)
-				{
-					d=1;
-					System.out.println(" ");
-					continue;
+					frame[i] = page_seq[i];
+					System.out.println("Page" + page_seq[i] + " : ");
+					pf++;
 				}
 				else
 				{
-					ind = getIndex(i);
-					frame[ind] = page_seq[i];
-					pf++;
+					System.out.print("Page" + page_seq[i] + " : ");
+					for(j=0;j<frame_size;j++)
+					{
+						if(page_seq[i]==frame[j])
+						{
+							d=0;
+							break;
+						}
+					}
+					if(d==0)
+					{
+						d=1;
+						System.out.println(" ");
+						continue;
+					}
+					else
+					{
+						ind = getIndex(i);
+						frame[ind] = page_seq[i];
+						pf++;
+					}
 				}
+				for(int x : frame)
+					System.out.println(x + "\t");
 			}
-			for(int x : frame)
-				System.out.println(x + "\t");
 			System.out.println("Page Faults = " + pf);
 	}
 
