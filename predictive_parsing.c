@@ -54,7 +54,7 @@ void pop()
 	stack[top]='\0';
 	top--;
 }
-void check_input(char expr[30],int n_expr)
+void check_input(char expr[30])
 {
 	int i,j,row,col;
 	char prod[20],*token,ch,StackTop,temp[2],rprod[20];
@@ -176,7 +176,7 @@ int main()
 		gets(inputString);
 		strcat(inputString,"$");
 		printf("\nInput String %s ",inputString);
-		check_input(inputString,strlen(inputString));
+		check_input(inputString);
 		printf("\nPress 1 to Continue ,0 to Exit : ");
 		scanf("%d",&ch);
 		fflush(stdin);
