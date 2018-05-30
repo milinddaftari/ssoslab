@@ -7,6 +7,8 @@ struct FT
 	char nonT,set[20];
 };
 
+int i,j;
+
 typedef struct FT FIRST_FOLLOW_SET;
 FIRST_FOLLOW_SET first[10],follow[10];
 char Parser_Table[2][3][10];
@@ -31,7 +33,6 @@ char stack[50];
 int top = -1;
 int getFollowIndex(char x)
 {
-	int i;
 	for(i=0;i<2;i++)
 		if(follow[i].nonT==x)
 			break;
@@ -39,7 +40,6 @@ int getFollowIndex(char x)
 } 
 int getTerminalIndex(char x)
 {
-	int i;
 	for(i=0;i<strlen(terminal_list);i++)
 		if(terminal_list[i]==x)
 			break;
@@ -56,7 +56,7 @@ void pop()
 }
 void check_input(char expr[30])
 {
-	int i,j,row,col;
+	int row,col;
 	char prod[20],*token,ch,StackTop,temp[2],rprod[20];
 	temp[1]='\0';
 	for(i=0;expr[i]!='$';)
@@ -128,7 +128,7 @@ void init()
 int main()
 {
 	char production[10][20],inputString[30],t,T;
-	int i,j,ch;
+	int ch;
 	for(i=0;i<2;i++)
 	{
 		printf("\nEnter the %d production ",i);
@@ -166,14 +166,14 @@ int main()
 			gets(Parser_Table[i][j]);
 			fflush(stdin);
 		}
-	init();
-	push('$');
-	push(production[0][0]);
-	printf("\nStack %s",stack);
-	printf("\nEnter the input : ");
-	gets(inputString);
-	strcat(inputString,"$");
-	printf("\nInput String %s ",inputString);
-	check_input(inputString);
-	printf("\n");	
+		init();
+		push('$');
+		push(production[0][0]);
+		printf("\nStack %s",stack);
+		printf("\nEnter the input : ");
+		gets(inputString);
+		strcat(inputString,"$");
+		printf("\nInput String %s ",inputString);
+		check_input(inputString);
+		printf("\n");
 }
