@@ -166,21 +166,14 @@ int main()
 			gets(Parser_Table[i][j]);
 			fflush(stdin);
 		}
-	while(1)
-	{
-		init();
-		push('$');
-		push(production[0][0]);
-		printf("\nStack %s",stack);
-		printf("\nEnter the input : ");
-		gets(inputString);
-		strcat(inputString,"$");
-		printf("\nInput String %s ",inputString);
-		check_input(inputString);
-		printf("\nPress 1 to Continue ,0 to Exit : ");
-		scanf("%d",&ch);
-		fflush(stdin);
-		if(ch==0)
-			break;
-	}
+	init();
+	push('$');
+	push(production[0][0]);
+	printf("\nStack %s",stack);
+	printf("\nEnter the input : ");
+	gets(inputString);
+	strcat(inputString,"$");
+	printf("\nInput String %s ",inputString);
+	check_input(inputString);
+	printf("\n");	
 }
